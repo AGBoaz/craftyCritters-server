@@ -1,0 +1,26 @@
+[
+    {
+        "model": "craftyCrittersapi.photo",
+        "pk": 1,
+        "fields": {
+            "title": "I call this one,, answers.",
+            "image": "https://64.media.tumblr.com/f7b7722b82a744505d8ec4ba8b88c3bb/4094283d667130bd-26/s1280x1920/1169756ea499bce68c737173ad5f6a6fa600077d.jpg"
+        }
+    },
+    {
+        "model": "craftyCrittersapi.photo",
+        "pk": 2,
+        "fields": {
+            "title": "it me",
+            "image": "https://images4-f.ravelrycache.com/uploads/Mycrochetwonders/867508113/11_small2.png"
+        }
+    },
+    {
+        "model": "craftyCrittersapi.photo",
+        "pk": 3,
+        "fields": {
+            "title": "raccoon time",
+            "image": "https://di2ponv0v5otw.cloudfront.net/posts/2020/11/02/5fa0caf288cce3590de4c881/m_5fa0cb04800f6402bbe8245d.jpg"
+        }
+    }
+]

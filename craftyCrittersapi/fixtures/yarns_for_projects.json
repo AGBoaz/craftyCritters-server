@@ -1,0 +1,18 @@
+[
+    {
+        "model": "craftyCrittersapi.yarnforproject",
+        "pk": 1,
+        "fields": {
+            "project": 1,
+            "yarn":1
+        }
+    },
+    {
+        "model": "craftyCrittersapi.yarnforproject",
+        "pk": 2,
+        "fields": {
+            "project": 1,
+            "yarn":2
+        }
+    }
+]

@@ -6,5 +6,5 @@ class Critter(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=50)
-    bio = models.CharField(max_length=500)
-    
+    bio = models.TextField(null=True)
+    photo = models.ImageField(null=True, upload_to=None, height_field=None, width_field=None, max_length=100)

@@ -1,0 +1,11 @@
+[
+    {
+        "model": "craftyCrittersapi.comment",
+        "pk": 1,
+        "fields": {
+            "body": "Im making a comment. Hope you think about this at night.",
+            "critter": 1,
+            "project":1
+        }
+    }
+]

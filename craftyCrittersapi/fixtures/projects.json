@@ -1,0 +1,28 @@
+[
+    {
+        "model": "craftyCrittersapi.project",
+        "pk": 1,
+        "fields": {
+            "project_type": "crochet",
+            "name": "clownin",
+            "tool_size":2,
+            "critter":1,
+            "photo":1,
+            "directions_link": "https://docs.google.com/document/d/1QMi8h0lKld9_Yc7XfgCaF1Svo8sFngBblKiil4rThhg/edit?usp=sharing",
+            "pattern_type":"stuffed animal"
+        }
+    },
+    {
+        "model": "craftyCrittersapi.project",
+        "pk": 2,
+        "fields": {
+            "project_type": "knit",
+            "name": "very cozy sweater",
+            "tool_size":3,
+            "critter":1,
+            "photo":3,
+            "directions_link": "https://docs.google.com/document/d/1QMi8h0lKld9_Yc7XfgCaF1Svo8sFngBblKiil4rThhg/edit?usp=sharing",
+            "pattern_type":"sweater"
+        }
+    }
+]

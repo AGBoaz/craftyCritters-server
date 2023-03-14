@@ -20,6 +20,15 @@ class CritterView(ViewSet):
         critter = Critter.objects.all()
         serializer = CritterSerializer(critter, many=True)
         return Response(serializer.data)
+    
+    def update(self, request, pk):
+        """ Handle PUT request for a critter """
+
+        critter = Critter.objects.get(pk=pk)
+        critter.bio = request.data["bio"]
+        critter.photo = request.data["photo"]
+        critter.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 class CritterSerializer(serializers.ModelSerializer):
     """ JSON serializer for critters """

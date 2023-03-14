@@ -18,7 +18,7 @@ class YarnView(ViewSet):
         """ Handle GET requests for all yarn """
 
         yarn = Yarn.objects.all()
-        serializer = YarnSerializer(yarn)
+        serializer = YarnSerializer(yarn, many=True)
         return Response(serializer.data)
 
 

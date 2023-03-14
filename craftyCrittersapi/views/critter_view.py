@@ -15,14 +15,14 @@ class CritterView(ViewSet):
         return Response(serializer.data)
 
     def list(self, request):
-        """ Handles single request for a critter"""
+        """ Handles a request for all critters"""
 
         critter = Critter.objects.all()
-        serializer = CritterSerializer(critter)
+        serializer = CritterSerializer(critter, many=True)
         return Response(serializer.data)
 
 class CritterSerializer(serializers.ModelSerializer):
     """ JSON serializer for critters """
     class Meta:
         model = Critter
-        fields = ('id','username', 'bio', 'photo')
+        fields = ('id', 'bio', 'photo')

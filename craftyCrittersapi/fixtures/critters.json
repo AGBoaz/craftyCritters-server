@@ -4,7 +4,6 @@
         "pk": 1,
         "fields": {
             "user":1,
-            "username": "crochet_god_119",
             "bio": "this is a bio. It is very informative about this user.",
             "photo":2
         }

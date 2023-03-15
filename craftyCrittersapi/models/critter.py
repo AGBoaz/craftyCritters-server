@@ -6,4 +6,4 @@ class Critter(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(null=True)
-    photo = models.ImageField(null=True, upload_to=None, height_field=None, width_field=None, max_length=100)
+    photo = models.ForeignKey("Photo", on_delete=models.CASCADE, null=True)

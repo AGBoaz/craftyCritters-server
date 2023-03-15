@@ -35,9 +35,8 @@ class ProjectView(ViewSet):
             photo=photo,
             critter=critter
         )
-        serializer = ProjectSerializer(project, many=True)
+        serializer = ProjectSerializer(project, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
 
     def update(self, request, pk):
@@ -56,6 +55,12 @@ class ProjectView(ViewSet):
         project.critter = critter
 
         project.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    def destroy(self, request, pk):
+        """ Handle DELETE requests for project """
+        project = Project.objects.get(pk=pk)
+        project.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 class ProjectSerializer(serializers.ModelSerializer):

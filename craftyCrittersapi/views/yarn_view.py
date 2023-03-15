@@ -21,6 +21,14 @@ class YarnView(ViewSet):
         serializer = YarnSerializer(yarn, many=True)
         return Response(serializer.data)
 
+    def create(self,request):
+        yarn = Yarn.objects.create(
+            size = request.data["size"],
+            color = request.data["color"]
+        )
+        serializer = YarnSerializer(yarn)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class YarnSerializer(serializers.ModelSerializer):
     """ JSON serializer for yarn """

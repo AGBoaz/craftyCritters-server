@@ -22,6 +22,7 @@ class YarnView(ViewSet):
         return Response(serializer.data)
 
     def create(self,request):
+        """ Handle POST requests for yarn """
         yarn = Yarn.objects.create(
             size = request.data["size"],
             color = request.data["color"]

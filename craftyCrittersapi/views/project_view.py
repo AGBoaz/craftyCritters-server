@@ -16,8 +16,13 @@ class ProjectView(ViewSet):
 
     def list(self, request):
         """ Handles a request for all projects"""
+        type = self.request.query_params.get("project_type", None)
 
-        project = Project.objects.all()
+        if type :
+            project = Project.objects.filter(project_type=type)
+        else:
+            project = Project.objects.all()
+
         serializer = ProjectSerializer(project, many=True)
         return Response(serializer.data)
 

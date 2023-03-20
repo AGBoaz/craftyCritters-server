@@ -10,4 +10,13 @@ class Project(models.Model):
     photo = models.ForeignKey("Photo", on_delete=models.CASCADE, null=True)
     directions_link = models.TextField(null=True)
     pattern_type = models.CharField(max_length=50)
-    
+
+    yarns = models.ManyToManyField("yarn", through="YarnForProject")
+
+    @property
+    def added(self):
+        return self.__added
+
+    @added.setter
+    def added(self, value):
+        self.__added = value

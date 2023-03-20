@@ -3,7 +3,8 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from craftyCrittersapi.models import Project, Photo, Critter
+from rest_framework.decorators import action
+from craftyCrittersapi.models import Project, Photo, Critter, Yarn
 
 class ProjectView(ViewSet):
     """Project view"""
@@ -61,12 +62,23 @@ class ProjectView(ViewSet):
 
         project.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-    
+
     def destroy(self, request, pk):
         """ Handle DELETE requests for project """
         project = Project.objects.get(pk=pk)
         project.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    @action(methods=['post'], detail=True)
+    def addYarn(self, request, yarnId, projectId):
+
+        yarn = Yarn.objects.get(pk=yarnId)
+        project = Project.objects.get(pk=projectId)
+
+        project.yarns.add(yarn)
+        return Response ({'message': 'Yarn added'}, status=status.HTTP_201_CREATED)
+
+
 
 class ProjectSerializer(serializers.ModelSerializer):
     """ JSON serializer for projects """

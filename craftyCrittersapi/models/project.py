@@ -11,7 +11,7 @@ class Project(models.Model):
     directions_link = models.TextField(null=True)
     pattern_type = models.CharField(max_length=50)
 
-    yarns = models.ManyToManyField("yarn", through="YarnForProject")
+    yarn = models.ManyToManyField("Yarn", through="YarnForProject")
 
     @property
     def added(self):

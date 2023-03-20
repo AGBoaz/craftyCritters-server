@@ -57,7 +57,7 @@ class ProjectView(ViewSet):
 
         photo = Photo.objects.get(pk=request.data["photo"])
         project.photo = photo
-        critter = Critter.objects.get(pk=request.data["critter"])
+        critter = Critter.objects.get(user=request.auth.user)
         project.critter = critter
 
         project.save()
@@ -70,15 +70,14 @@ class ProjectView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     @action(methods=['post'], detail=True)
-    def addYarn(self, request, yarnId, projectId):
+    def addYarn(self, request, pk):
+        """ Handle POST request to add yarn to a project """
 
-        yarn = Yarn.objects.get(pk=yarnId)
-        project = Project.objects.get(pk=projectId)
+        project = Project.objects.get(pk=pk)
+        yarn = Yarn.objects.get(pk=request.data["yarn"])
+        project.yarn.add(yarn)
 
-        project.yarns.add(yarn)
-        return Response ({'message': 'Yarn added'}, status=status.HTTP_201_CREATED)
-
-
+        return Response (status=status.HTTP_201_CREATED)
 
 class ProjectSerializer(serializers.ModelSerializer):
     """ JSON serializer for projects """
@@ -87,5 +86,5 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'project_type', 'name', 'tool_size',
             'photo', 'directions_link', 'pattern_type',
-            'critter'
+            'critter', 'yarn', 'added'
         )

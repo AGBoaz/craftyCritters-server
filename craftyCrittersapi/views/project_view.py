@@ -3,7 +3,8 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from craftyCrittersapi.models import Project, Photo, Critter
+from rest_framework.decorators import action
+from craftyCrittersapi.models import Project, Photo, Critter, Yarn
 
 class ProjectView(ViewSet):
     """Project view"""
@@ -56,17 +57,27 @@ class ProjectView(ViewSet):
 
         photo = Photo.objects.get(pk=request.data["photo"])
         project.photo = photo
-        critter = Critter.objects.get(pk=request.data["critter"])
+        critter = Critter.objects.get(user=request.auth.user)
         project.critter = critter
 
         project.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-    
+
     def destroy(self, request, pk):
         """ Handle DELETE requests for project """
         project = Project.objects.get(pk=pk)
         project.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    @action(methods=['post'], detail=True)
+    def addYarn(self, request, pk):
+        """ Handle POST request to add yarn to a project """
+
+        project = Project.objects.get(pk=pk)
+        yarn = Yarn.objects.get(pk=request.data["yarn"])
+        project.yarn.add(yarn)
+
+        return Response (status=status.HTTP_201_CREATED)
 
 class ProjectSerializer(serializers.ModelSerializer):
     """ JSON serializer for projects """
@@ -75,5 +86,5 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'project_type', 'name', 'tool_size',
             'photo', 'directions_link', 'pattern_type',
-            'critter'
+            'critter', 'yarn', 'added'
         )

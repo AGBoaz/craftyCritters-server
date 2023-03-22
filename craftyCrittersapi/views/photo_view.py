@@ -12,17 +12,20 @@ class PhotoView(ViewSet):
 
     def create(self, request):
         """ creates a new photo and assigns it a random name """
-
-        format, imgstr = request.data["photo"].split(';base64,')
+        #requests information for the image key in photos. splits the info at ";base64,"
+        format, imgstr = request.data["image"].split(';base64,')
+        #?? starts at the end of format and splits the info at each "/"
         ext = format.split('/')[-1]
-        data = ContentFile(base64.b64decode(imgstr), name=f'{request.data["project"]}-{uuid.uuid4()}.{ext}')
+        #not entirely sure. sets the uploaded file as a string in photo object???
+        data = ContentFile(base64.b64decode(imgstr), name=f'{request.data["photo"]}-{uuid.uuid4()}.{ext}')
 
+        #create a photo object where the image has the value of data (defined on line 20)
         photo = Photo.objects.create(
             title = request.data["title"],
             image = data
         )
         photo.save()
-        serializer = PhotoSerializer(photo, many=True)
+        serializer = PhotoSerializer(photo, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 

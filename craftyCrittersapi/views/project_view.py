@@ -17,15 +17,14 @@ class ProjectView(ViewSet):
 
     def list(self, request):
         """ Handles a request for all projects"""
-        critterUser = Critter.objects.get(user=request.auth.user)
 
         type = self.request.query_params.get("project_type", None)
         mine = self.request.query_params.get("critter", None)
 
         if type :
             project = Project.objects.filter(project_type=type)
-        elif mine:
-            project = Project.objects.filter(critter=critterUser.id)
+        elif mine == "yes" :
+            project = Project.objects.filter(critter__user=request.auth.user)
         else:
             project = Project.objects.all()
 
@@ -34,7 +33,6 @@ class ProjectView(ViewSet):
 
     def create(self, request):
         """ Handle POST request for projects """
-        photo = Photo.objects.get(pk=request.data["photo"])
         critter = Critter.objects.get(user=request.auth.user)
 
         project = Project.objects.create(
@@ -43,7 +41,6 @@ class ProjectView(ViewSet):
             tool_size = request.data["tool_size"],
             directions_link = request.data["directions_link"],
             pattern_type = request.data["pattern_type"],
-            photo=photo,
             critter=critter
         )
         serializer = ProjectSerializer(project, many=False)
@@ -60,8 +57,6 @@ class ProjectView(ViewSet):
         project.directions_link = request.data["directions_link"]
         project.pattern_type = request.data["pattern_type"]
 
-        photo = Photo.objects.get(pk=request.data["photo"])
-        project.photo = photo
         critter = Critter.objects.get(user=request.auth.user)
         project.critter = critter
 
@@ -90,6 +85,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = (
             'id', 'project_type', 'name', 'tool_size',
-            'photo', 'directions_link', 'pattern_type',
+            'directions_link', 'pattern_type',
             'critter', 'yarn', 'added'
         )

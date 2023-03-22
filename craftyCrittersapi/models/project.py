@@ -7,7 +7,6 @@ class Project(models.Model):
     name = models.CharField(max_length=100)
     tool_size = models.IntegerField(null=True)
     critter = models.ForeignKey("Critter", on_delete=models.CASCADE)
-    photo = models.ForeignKey("Photo", on_delete=models.CASCADE, null=True)
     directions_link = models.TextField(null=True)
     pattern_type = models.CharField(max_length=50)
 

@@ -20,7 +20,7 @@ class CritterView(ViewSet):
         critter = Critter.objects.all()
         serializer = CritterSerializer(critter, many=True)
         return Response(serializer.data)
-    
+
     def update(self, request, pk):
         """ Handle PUT request for a critter """
 

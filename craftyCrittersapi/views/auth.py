@@ -44,22 +44,18 @@ def register_user(request):
     Method arguments:
     request -- The full HTTP request object
     '''
-
     # Create a new user by invoking the `create_user` helper method
     # on Django's built-in User model
     new_user = User.objects.create_user(
         username=request.data['username'],
         password=request.data['password'],
+        email=request.data['email'],
         first_name=request.data['first_name'],
         last_name=request.data['last_name']
     )
-
     critter = Critter.objects.create(
-        user = new_user,
-        bio = request.data['bio'],
-        photo = request.data['photo']
+        user = new_user
     )
-
-    token = Token.objects.create(user = critter.user)
+    token = Token.objects.create(user=critter.user)
     data = {'token': token.key}
     return Response(data)

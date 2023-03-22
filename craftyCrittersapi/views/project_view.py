@@ -17,10 +17,15 @@ class ProjectView(ViewSet):
 
     def list(self, request):
         """ Handles a request for all projects"""
+        critterUser = Critter.objects.get(user=request.auth.user)
+
         type = self.request.query_params.get("project_type", None)
+        mine = self.request.query_params.get("critter", None)
 
         if type :
             project = Project.objects.filter(project_type=type)
+        elif mine:
+            project = Project.objects.filter(critter=critterUser.id)
         else:
             project = Project.objects.all()
 

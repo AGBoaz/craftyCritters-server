@@ -20,13 +20,14 @@ from rest_framework import routers
 from django.conf.urls.static import static
 from django.conf import settings
 from craftyCrittersapi.views import(
-    register_user, login_user, CritterView, YarnView, ProjectView
+    register_user, login_user, CritterView, YarnView, ProjectView, CommentView
 )
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'critters', CritterView, 'critter')
 router.register(r'yarns', YarnView, 'yarn')
 router.register(r'projects', ProjectView, 'project')
+router.register(r'comments', CommentView, 'comment')
 
 urlpatterns = [
     path('register', register_user),
